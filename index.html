@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ProLancer — Get Any Project Done</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1c1c26;
+  --border: #2a2a3a;
+  --accent: #f0b429;
+  --accent2: #7c5cbf;
+  --text: #e8e8f0;
+  --muted: #7a7a9a;
+  --danger: #e05252;
+  --success: #3ecf8e;
+  --radius: 14px;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+
+/* ── NAVBAR ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(10,10,15,0.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--font-head);font-size:1.4rem;font-weight:800;letter-spacing:-0.03em;}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{font-size:0.9rem;color:var(--muted);transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--accent);color:#000;font-family:var(--font-head);font-weight:700;font-size:0.85rem;padding:0.55rem 1.4rem;border-radius:50px;transition:opacity .2s;}
+.nav-cta:hover{opacity:0.85;}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:72px;}
+.page.active{display:block;}
+
+/* ── HERO ── */
+.hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 1.5rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,92,191,0.18) 0%, transparent 65%),radial-gradient(ellipse 50% 40% at 80% 80%, rgba(240,180,41,0.1) 0%, transparent 60%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:0.35rem 1rem;font-size:0.8rem;color:var(--muted);margin-bottom:2rem;animation:fadeUp .6s ease both;}
+.hero-badge span{width:7px;height:7px;border-radius:50%;background:var(--success);display:inline-block;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(62,207,142,0.4);}50%{box-shadow:0 0 0 6px rgba(62,207,142,0);}}
+.hero h1{font-family:var(--font-head);font-size:clamp(2.8rem,7vw,5.5rem);font-weight:800;line-height:1.08;letter-spacing:-0.04em;margin-bottom:1.5rem;animation:fadeUp .6s .1s ease both;}
+.hero h1 em{color:var(--accent);font-style:normal;}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:540px;margin-bottom:2.5rem;animation:fadeUp .6s .2s ease both;font-weight:300;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .6s .3s ease both;}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 2rem;border-radius:50px;font-family:var(--font-head);font-weight:700;font-size:0.95rem;cursor:pointer;transition:all .2s;border:none;}
+.btn-primary{background:var(--accent);color:#000;}
+.btn-primary:hover{background:#f5c842;transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,180,41,0.3);}
+.btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border);}
+.btn-secondary:hover{border-color:var(--muted);transform:translateY(-2px);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── STATS ── */
+.stats{display:flex;justify-content:center;gap:3rem;padding:2.5rem;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.stat-item{text-align:center;}
+.stat-num{font-family:var(--font-head);font-size:2.2rem;font-weight:800;color:var(--accent);}
+.stat-label{font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+
+/* ── SECTIONS ── */
+section{padding:5rem 1.5rem;}
+.section-tag{display:inline-block;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);font-weight:600;margin-bottom:1rem;}
+.section-title{font-family:var(--font-head);font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem;}
+.section-sub{color:var(--muted);font-size:1rem;max-width:500px;font-weight:300;}
+.container{max-width:1100px;margin:0 auto;}
+
+/* ── CATEGORIES GRID ── */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-top:3rem;}
+.cat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.cat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,180,41,0.06),transparent);opacity:0;transition:opacity .3s;}
+.cat-card:hover::before{opacity:1;}
+.cat-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.4);}
+.cat-icon{font-size:2.2rem;margin-bottom:1rem;}
+.cat-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;}
+.cat-card p{font-size:0.85rem;color:var(--muted);line-height:1.5;}
+.cat-arrow{position:absolute;bottom:1.5rem;right:1.5rem;color:var(--accent);opacity:0;transform:translateX(-6px);transition:all .25s;font-size:1.1rem;}
+.cat-card:hover .cat-arrow{opacity:1;transform:translateX(0);}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3rem;}
+.step{display:flex;flex-direction:column;gap:1rem;}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:800;font-size:1.1rem;color:var(--accent);}
+.step h3{font-family:var(--font-head);font-size:1.05rem;font-weight:700;}
+.step p{font-size:0.88rem;color:var(--muted);}
+
+/* ── TESTIMONIALS ── */
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem;}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;}
+.tcard-quote{font-size:0.95rem;color:var(--text);line-height:1.7;margin-bottom:1.25rem;font-style:italic;font-weight:300;}
+.tcard-author{display:flex;align-items:center;gap:0.75rem;}
+.tcard-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;color:#000;}
+.tcard-name{font-family:var(--font-head);font-size:0.9rem;font-weight:700;}
+.tcard-role{font-size:0.78rem;color:var(--muted);}
+
+/* ── CONTACT ── */
+.contact-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;margin-top:3rem;align-items:start;}
+.contact-info h3{font-family:var(--font-head);font-size:1.3rem;font-weight:700;margin-bottom:1rem;}
+.contact-info p{color:var(--muted);font-size:0.9rem;margin-bottom:2rem;}
+.info-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem;}
+.info-icon{font-size:1.4rem;margin-top:2px;}
+.info-item strong{display:block;font-size:0.9rem;margin-bottom:0.2rem;}
+.info-item span{font-size:0.85rem;color:var(--muted);}
+
+/* ── FORM ── */
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;}
+.form-group{margin-bottom:1.25rem;}
+.form-group label{display:block;font-size:0.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:0.8rem 1rem;color:var(--text);font-family:var(--font-body);font-size:0.95rem;transition:border-color .2s;outline:none;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+.form-group textarea{resize:vertical;min-height:110px;}
+.form-group select option{background:var(--surface2);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.btn-submit{width:100%;padding:1rem;border-radius:50px;background:var(--accent);color:#000;font-family:var(--font-head);font-weight:800;font-size:1rem;border:none;cursor:pointer;transition:all .2s;margin-top:0.5rem;}
+.btn-submit:hover{background:#f5c842;transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,180,41,0.3);}
+.form-success{display:none;text-align:center;padding:2rem;}
+.form-success .check{font-size:3rem;}
+.form-success h3{font-family:var(--font-head);margin:0.75rem 0 0.5rem;font-size:1.3rem;}
+.form-success p{color:var(--muted);font-size:0.9rem;}
+
+/* ── CATEGORY PAGE ── */
+.cat-page-hero{padding:4rem 1.5rem 2rem;text-align:center;}
+.cat-page-hero .badge{display:inline-block;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:0.3rem 1rem;font-size:0.8rem;color:var(--muted);margin-bottom:1rem;}
+.cat-page-hero h1{font-family:var(--font-head);font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem;}
+.cat-page-hero p{color:var(--muted);max-width:560px;margin:0 auto 2rem;}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-top:2rem;}
+.service-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;}
+.service-card .price{font-family:var(--font-head);font-size:1.4rem;font-weight:800;color:var(--accent);margin-bottom:0.25rem;}
+.service-card h4{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:0.5rem;}
+.service-card p{font-size:0.83rem;color:var(--muted);}
+.service-card .tag{display:inline-block;font-size:0.72rem;background:var(--surface2);border-radius:50px;padding:0.2rem 0.7rem;color:var(--muted);margin-top:0.75rem;}
+
+/* ── ADMIN PANEL ── */
+.admin-login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem;}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;width:100%;max-width:400px;text-align:center;}
+.login-card h2{font-family:var(--font-head);font-size:1.6rem;font-weight:800;margin-bottom:0.5rem;}
+.login-card p{color:var(--muted);font-size:0.88rem;margin-bottom:2rem;}
+.login-error{color:var(--danger);font-size:0.82rem;margin-top:0.75rem;display:none;}
+
+.admin-panel{display:none;}
+.admin-panel.active{display:block;}
+.admin-header{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+.admin-header h1{font-family:var(--font-head);font-size:1.2rem;font-weight:800;}
+.admin-header h1 span{color:var(--accent);}
+.admin-body{padding:2rem;max-width:1100px;margin:0 auto;}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem;}
+.astat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;}
+.astat-val{font-family:var(--font-head);font-size:1.8rem;font-weight:800;}
+.astat-label{font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+.admin-section-title{font-family:var(--font-head);font-size:1.1rem;font-weight:700;margin:2rem 0 1rem;}
+.submissions-table{width:100%;border-collapse:collapse;font-size:0.88rem;}
+.submissions-table th{text-align:left;padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--muted);font-weight:500;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;}
+.submissions-table td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;}
+.submissions-table tr:hover td{background:var(--surface2);}
+.badge-status{display:inline-block;padding:0.2rem 0.7rem;border-radius:50px;font-size:0.72rem;font-weight:600;}
+.badge-new{background:rgba(124,92,191,0.2);color:#a07de0;}
+.badge-progress{background:rgba(240,180,41,0.2);color:var(--accent);}
+.badge-done{background:rgba(62,207,142,0.2);color:var(--success);}
+.admin-logout{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.45rem 1rem;border-radius:50px;font-size:0.82rem;cursor:pointer;transition:all .2s;font-family:var(--font-body);}
+.admin-logout:hover{border-color:var(--danger);color:var(--danger);}
+.empty-state{text-align:center;padding:3rem;color:var(--muted);}
+.empty-state .icon{font-size:2.5rem;margin-bottom:1rem;}
+
+/* ── FOOTER ── */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;margin-top:4rem;}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;}
+.footer-brand p{color:var(--muted);font-size:0.85rem;margin-top:0.75rem;max-width:240px;}
+.footer-col h4{font-family:var(--font-head);font-size:0.9rem;font-weight:700;margin-bottom:1rem;}
+.footer-col a{display:block;color:var(--muted);font-size:0.85rem;margin-bottom:0.5rem;transition:color .2s;}
+.footer-col a:hover{color:var(--text);}
+.footer-bottom{max-width:1100px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--muted);}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem;}
+  .nav-links{display:none;}
+  .contact-wrap{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr 1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .admin-body{padding:1rem;}
+  .submissions-table{font-size:0.8rem;}
+  .submissions-table th:nth-child(4),.submissions-table td:nth-child(4){display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAVBAR ════════════ -->
+<nav>
+  <div class="nav-logo">Pro<span>Lancer</span></div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('categories').scrollIntoView({behavior:'smooth'}),100)">Services</a>
+    <a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('how').scrollIntoView({behavior:'smooth'}),100)">How it Works</a>
+    <a href="#" onclick="showPage('contact')">Contact</a>
+    <a href="#" onclick="showPage('admin-login')" style="color:var(--muted);font-size:0.82rem;">⚙ Admin</a>
+  </div>
+  <a class="nav-cta btn" onclick="showPage('contact')">Submit Project →</a>
+</nav>
+
+<!-- ════════════ HOME PAGE ════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge"><span></span> Open for New Projects</div>
+    <h1>We Build <em>Anything</em><br/>You Imagine</h1>
+    <p>From tech products to creative work — submit your project, set your budget, and let us handle the rest.</p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="showPage('contact')">Submit Your Project</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Explore Services ↓</button>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item"><div class="stat-num">200+</div><div class="stat-label">Projects Delivered</div></div>
+    <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Happy Clients</div></div>
+    <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label">Project Categories</div></div>
+    <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Satisfaction Rate</div></div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section id="categories">
+    <div class="container">
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-title">Every Type of Project,<br/>One Place</h2>
+      <p class="section-sub">Technical, creative, or anything in between — we have specialists for it all.</p>
+      <div class="cat-grid">
+        <div class="cat-card" onclick="showCatPage('web')">
+          <div class="cat-icon">🌐</div>
+          <h3>Web Development</h3>
+          <p>Websites, web apps, landing pages, e-commerce stores, dashboards, and more.</p>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card" onclick="showCatPage('mobile')">
+          <div class="cat-icon">📱</div>
+          <h3>Mobile Apps</h3>
+          <p>iOS and Android apps, cross-platform solutions, UI/UX prototyping.</p>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card" onclick="showCatPage('design')">
+          <div class="cat-icon">🎨</div>
+          <h3>Design & Branding</h3>
+          <p>Logos, brand identity, UI design, social media graphics, presentations.</p>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card" onclick="showCatPage('data')">
+          <div class="cat-icon">📊</div>
+          <h3>Data & Analytics</h3>
+          <p>Data analysis, dashboards, automation scripts, Excel/Python solutions.</p>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card" onclick="showCatPage('writing')">
+          <div class="cat-icon">✍️</div>
+          <h3>Content & Writing</h3>
+          <p>Copywriting, blog posts, technical writing, translations, SEO content.</p>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card" onclick="showCatPage('ai')">
+          <div class="cat-icon">🤖</div>
+          <h3>AI & Automation</h3>
+          <p>Chatbots, AI integrations, workflow automation, custom AI tools.</p>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card" onclick="showCatPage('video')">
+          <div class="cat-icon">🎬</div>
+          <h3>Video & Media</h3>
+          <p>Video editing, motion graphics, animations, explainer videos, reels.</p>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card" onclick="showCatPage('other')">
+          <div class="cat-icon">💡</div>
+          <h3>Other / Custom</h3>
+          <p>Have something unique? We welcome all kinds of projects. Just reach out.</p>
+          <div class="cat-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div class="section-tag">Process</div>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Simple, fast, and transparent from start to finish.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Submit Your Project</h3>
+          <p>Fill out our form with your project details, requirements, and the amount you want to pay.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>We Review & Confirm</h3>
+          <p>We review your submission and reach out within 24 hours to confirm scope and timeline.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Work Begins</h3>
+          <p>Our team gets to work. You get regular updates and can share feedback throughout.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Delivery & Handover</h3>
+          <p>Receive your completed project with full files, documentation, and post-delivery support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="container">
+      <div class="section-tag">Reviews</div>
+      <h2 class="section-title">What Clients Say</h2>
+      <div class="testimonials">
+        <div class="tcard">
+          <div class="tcard-quote">"Submitted a complex web app idea with a tight budget — delivered on time and exactly as described. Genuinely impressed."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar" style="background:#f0b429;">AR</div>
+            <div><div class="tcard-name">Arjun Rao</div><div class="tcard-role">Startup Founder</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tcard-quote">"Needed a data analysis script for my research. Got a clean Python solution in 2 days. Will definitely use again."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar" style="background:#7c5cbf;">PP</div>
+            <div><div class="tcard-name">Priya Patel</div><div class="tcard-role">PhD Researcher</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tcard-quote">"Brand identity package was stunning. The logo, colours, and guidelines were all exactly what I envisioned."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar" style="background:#3ecf8e;">MS</div>
+            <div><div class="tcard-name">Mohammed S.</div><div class="tcard-role">Restaurant Owner</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.2rem;">Pro<span style="color:var(--accent);">Lancer</span></div>
+        <p>Professional freelance services for every type of project. Technical and non-technical alike.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#" onclick="showCatPage('web')">Web Development</a>
+        <a href="#" onclick="showCatPage('mobile')">Mobile Apps</a>
+        <a href="#" onclick="showCatPage('design')">Design</a>
+        <a href="#" onclick="showCatPage('data')">Data & Analytics</a>
+      </div>
+      <div class="footer-col">
+        <h4>More</h4>
+        <a href="#" onclick="showCatPage('writing')">Writing</a>
+        <a href="#" onclick="showCatPage('ai')">AI & Automation</a>
+        <a href="#" onclick="showCatPage('video')">Video & Media</a>
+        <a href="#" onclick="showCatPage('other')">Custom Projects</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it Works</a>
+        <a href="#" onclick="showPage('contact')">Contact Us</a>
+        <a href="#" onclick="showPage('admin-login')">Admin</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ProLancer. All rights reserved.</span>
+      <span>Made with ♥ for every project type</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════ CATEGORY PAGE ════════════ -->
+<div id="page-category" class="page">
+  <div id="cat-content"></div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.2rem;">Pro<span style="color:var(--accent);">Lancer</span></div>
+        <p>Professional freelance services for every type of project.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('contact')">Submit Project</a>
+        <a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('categories').scrollIntoView({behavior:'smooth'}),100)">All Services</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 ProLancer.</span></div>
+  </footer>
+</div>
+
+<!-- ════════════ CONTACT PAGE ════════════ -->
+<div id="page-contact" class="page">
+  <section style="padding:4rem 1.5rem 1rem;">
+    <div class="container">
+      <div class="section-tag">Get Started</div>
+      <h1 class="section-title">Submit Your Project</h1>
+      <p class="section-sub">Tell us what you need, your budget, and we'll get back to you within 24 hours.</p>
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <h3>Let's Work Together</h3>
+          <p>Whether it's a quick task or a big build — we're ready. All projects are welcome.</p>
+          <div class="info-item">
+            <div class="info-icon">📧</div>
+            <div><strong>Email Us</strong><span>hello@prolancer.dev</span></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">💬</div>
+            <div><strong>WhatsApp</strong><span>+91 98765 43210</span></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">🕐</div>
+            <div><strong>Response Time</strong><span>Within 24 hours</span></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">🌍</div>
+            <div><strong>Location</strong><span>Jaipur, Rajasthan, India</span></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">✅</div>
+            <div><strong>All Project Types</strong><span>Technical & Non-Technical</span></div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div id="project-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your Name *</label>
+                <input type="text" id="f-name" placeholder="Full name"/>
+              </div>
+              <div class="form-group">
+                <label>Email *</label>
+                <input type="email" id="f-email" placeholder="your@email.com"/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phone / WhatsApp</label>
+                <input type="text" id="f-phone" placeholder="+91 XXXXX XXXXX"/>
+              </div>
+              <div class="form-group">
+                <label>Project Category *</label>
+                <select id="f-category">
+                  <option value="">Select category</option>
+                  <option>Web Development</option>
+                  <option>Mobile App</option>
+                  <option>Design & Branding</option>
+                  <option>Data & Analytics</option>
+                  <option>Content & Writing</option>
+                  <option>AI & Automation</option>
+                  <option>Video & Media</option>
+                  <option>Other / Custom</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Project Title *</label>
+              <input type="text" id="f-title" placeholder="e.g. E-commerce website for my clothing brand"/>
+            </div>
+            <div class="form-group">
+              <label>Project Description *</label>
+              <textarea id="f-desc" placeholder="Describe what you need, features, goals, any specific requirements..."></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your Budget (₹) *</label>
+                <input type="text" id="f-budget" placeholder="e.g. 5000"/>
+              </div>
+              <div class="form-group">
+                <label>Deadline</label>
+                <input type="date" id="f-deadline"/>
+              </div>
+            </div>
+            <button class="btn-submit" onclick="submitProject()">Submit Project →</button>
+          </div>
+          <div class="form-success" id="form-success">
+            <div class="check">🎉</div>
+            <h3>Project Submitted!</h3>
+            <p>We've received your project and will contact you within 24 hours.</p>
+            <button class="btn btn-secondary" style="margin-top:1.5rem;" onclick="resetForm()">Submit Another</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer style="margin-top:2rem;">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.2rem;">Pro<span style="color:var(--accent);">Lancer</span></div>
+        <p>Professional freelance services for every type of project.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('categories').scrollIntoView({behavior:'smooth'}),100)">Services</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 ProLancer.</span></div>
+  </footer>
+</div>
+
+<!-- ════════════ ADMIN LOGIN ════════════ -->
+<div id="page-admin-login" class="page">
+  <div class="admin-login">
+    <div class="login-card">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">🔐</div>
+      <h2>Admin Access</h2>
+      <p>This area is restricted to the site owner only.</p>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="admin-pass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()"/>
+      </div>
+      <button class="btn-submit" onclick="adminLogin()">Login →</button>
+      <div class="login-error" id="login-error">❌ Incorrect password. Try again.</div>
+      <div style="margin-top:1.5rem;"><a href="#" onclick="showPage('home')" style="color:var(--muted);font-size:0.82rem;">← Back to website</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ ADMIN PANEL ════════════ -->
+<div id="page-admin" class="page">
+  <div class="admin-panel active">
+    <div class="admin-header">
+      <h1>Pro<span>Lancer</span> Admin</h1>
+      <button class="admin-logout" onclick="adminLogout()">Logout</button>
+    </div>
+    <div class="admin-body">
+      <div class="admin-stats" id="admin-stats"></div>
+      <div class="admin-section-title">📋 All Project Submissions</div>
+      <div id="admin-table-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── STATE ──
+const ADMIN_PASSWORD = 'admin123'; // Change this!
+let submissions = JSON.parse(localStorage.getItem('pl_submissions') || '[]');
+
+// ── NAVIGATION ──
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── CATEGORY DATA ──
+const catData = {
+  web: {
+    icon: '🌐', title: 'Web Development', color: '#f0b429',
+    desc: 'From simple landing pages to complex web applications — we build modern, fast, and beautiful websites.',
+    services: [
+      { name: 'Landing Page', price: '₹3,000', desc: 'Clean, conversion-focused single-page website', tag: '3–5 days' },
+      { name: 'Business Website', price: '₹8,000', desc: 'Multi-page site with contact form and CMS', tag: '7–10 days' },
+      { name: 'E-Commerce Store', price: '₹15,000', desc: 'Full online store with cart, payments & admin', tag: '14–21 days' },
+      { name: 'Web Application', price: 'Custom', desc: 'Custom dashboard, portal, or SaaS product', tag: 'Discuss timeline' },
+      { name: 'Website Redesign', price: '₹5,000', desc: 'Modern refresh of your existing website', tag: '5–7 days' },
+      { name: 'Bug Fixing / Support', price: '₹1,500', desc: 'Fix issues, speed improvements, updates', tag: '1–2 days' },
+    ]
+  },
+  mobile: {
+    icon: '📱', title: 'Mobile App Development', color: '#7c5cbf',
+    desc: 'Native and cross-platform apps for iOS and Android, from prototype to production.',
+    services: [
+      { name: 'App UI/UX Design', price: '₹6,000', desc: 'Figma prototype and screen flows', tag: '5–7 days' },
+      { name: 'Simple Android App', price: '₹10,000', desc: 'Single-purpose Android application', tag: '10–14 days' },
+      { name: 'Cross-Platform App', price: '₹18,000', desc: 'React Native or Flutter app (iOS + Android)', tag: '21–30 days' },
+      { name: 'App with Backend', price: '₹25,000', desc: 'Full app with API, database, and auth', tag: '30+ days' },
+    ]
+  },
+  design: {
+    icon: '🎨', title: 'Design & Branding', color: '#e05252',
+    desc: 'Visual identity, UI design, and everything in between — crafted to make your brand unforgettable.',
+    services: [
+      { name: 'Logo Design', price: '₹1,500', desc: 'Unique logo with 3 concepts and revisions', tag: '2–3 days' },
+      { name: 'Brand Identity Kit', price: '₹5,000', desc: 'Logo, colors, fonts, business card, letterhead', tag: '5–7 days' },
+      { name: 'Social Media Kit', price: '₹2,500', desc: '10 branded templates for Instagram/Facebook', tag: '3–4 days' },
+      { name: 'Pitch Deck / Presentation', price: '₹3,500', desc: 'Investor-ready or client presentation design', tag: '3–5 days' },
+      { name: 'UI Design (Web/App)', price: '₹8,000', desc: 'Full UI screens in Figma with components', tag: '7–10 days' },
+    ]
+  },
+  data: {
+    icon: '📊', title: 'Data & Analytics', color: '#3ecf8e',
+    desc: 'Turn raw data into actionable insights with scripts, dashboards, and automation.',
+    services: [
+      { name: 'Excel Automation', price: '₹2,000', desc: 'Macros, formulas, and automated reports', tag: '1–2 days' },
+      { name: 'Python Data Script', price: '₹3,500', desc: 'Custom Python script for analysis or scraping', tag: '2–4 days' },
+      { name: 'Data Dashboard', price: '₹7,000', desc: 'Interactive charts and reports (Power BI/Tableau)', tag: '5–7 days' },
+      { name: 'Database Design', price: '₹5,000', desc: 'Schema design, queries, and optimization', tag: '4–6 days' },
+      { name: 'ML Model (Basic)', price: '₹10,000', desc: 'Classification, regression, or prediction model', tag: '10–14 days' },
+    ]
+  },
+  writing: {
+    icon: '✍️', title: 'Content & Writing', color: '#f0b429',
+    desc: 'High-quality written content for every platform — from blog posts to technical documentation.',
+    services: [
+      { name: 'Blog Post (1000 words)', price: '₹800', desc: 'SEO-optimized article on your topic', tag: '1–2 days' },
+      { name: 'Website Copy', price: '₹3,000', desc: 'Homepage, about, and service page copy', tag: '3–4 days' },
+      { name: 'Technical Writing', price: '₹4,000', desc: 'Documentation, manuals, SOPs', tag: '4–6 days' },
+      { name: 'Social Media Content', price: '₹2,000', desc: '30 days of captions and content plan', tag: '2–3 days' },
+      { name: 'Translation (per page)', price: '₹500', desc: 'Hindi ↔ English and other languages', tag: '1 day' },
+    ]
+  },
+  ai: {
+    icon: '🤖', title: 'AI & Automation', color: '#7c5cbf',
+    desc: 'Chatbots, AI integrations, and smart automations that save you time and money.',
+    services: [
+      { name: 'Chatbot Integration', price: '₹5,000', desc: 'AI chatbot for your website or WhatsApp', tag: '3–5 days' },
+      { name: 'Workflow Automation', price: '₹4,000', desc: 'Zapier/Make automation for your business', tag: '2–4 days' },
+      { name: 'AI Content Tool', price: '₹8,000', desc: 'Custom AI writing or image generation tool', tag: '7–10 days' },
+      { name: 'API Integration', price: '₹3,000', desc: 'Connect any two tools or platforms via API', tag: '2–3 days' },
+      { name: 'Custom AI App', price: 'Custom', desc: 'Tailored AI solution for your specific use case', tag: 'Discuss' },
+    ]
+  },
+  video: {
+    icon: '🎬', title: 'Video & Media', color: '#e05252',
+    desc: 'Professional video editing, animations, and motion graphics for social and marketing.',
+    services: [
+      { name: 'Reel / Short Edit', price: '₹1,500', desc: 'Instagram/YouTube short (up to 60 sec)', tag: '1–2 days' },
+      { name: 'Promo Video', price: '₹4,000', desc: 'Product or service promotional video (2–3 min)', tag: '4–6 days' },
+      { name: 'Explainer Animation', price: '₹8,000', desc: '2D animated explainer video (1–2 min)', tag: '7–10 days' },
+      { name: 'YouTube Video Edit', price: '₹2,500', desc: 'Full editing, captions, thumbnail included', tag: '2–3 days' },
+      { name: 'Motion Graphics Logo', price: '₹2,000', desc: 'Animated logo reveal for intros/outros', tag: '2 days' },
+    ]
+  },
+  other: {
+    icon: '💡', title: 'Custom Projects', color: '#3ecf8e',
+    desc: "Have something unique that doesn't fit a category? We love a challenge. Submit it and we'll figure it out together.",
+    services: [
+      { name: 'Research & Reports', price: '₹3,000', desc: 'In-depth research on any topic with citations', tag: '3–5 days' },
+      { name: 'Academic Help', price: '₹2,000', desc: 'Essays, assignments, presentations', tag: '1–3 days' },
+      { name: 'Business Plan', price: '₹5,000', desc: 'Full business plan with financial projections', tag: '5–7 days' },
+      { name: 'Virtual Assistance', price: '₹1,500/week', desc: 'Admin tasks, emails, scheduling, research', tag: 'Ongoing' },
+      { name: 'Any Other Project', price: 'Custom', desc: 'Describe your project and we\'ll quote you', tag: 'Flexible' },
+    ]
+  }
+};
+
+function showCatPage(key) {
+  const d = catData[key];
+  if (!d) return;
+  const servicesHTML = d.services.map(s => `
+    <div class="service-card">
+      <div class="price">${s.price}</div>
+      <h4>${s.name}</h4>
+      <p>${s.desc}</p>
+      <span class="tag">⏱ ${s.tag}</span>
+    </div>
+  `).join('');
+  document.getElementById('cat-content').innerHTML = `
+    <section class="cat-page-hero">
+      <div class="container">
+        <div class="badge" onclick="showPage('home')" style="cursor:pointer;">← Back to Home</div>
+        <div style="font-size:3.5rem;margin:1rem 0;">${d.icon}</div>
+        <h1>${d.title}</h1>
+        <p>${d.desc}</p>
+        <button class="btn btn-primary" onclick="showPage('contact')">Submit This Project →</button>
+      </div>
+    </section>
+    <section style="padding:2rem 1.5rem 4rem;">
+      <div class="container">
+        <div class="section-tag">Pricing & Packages</div>
+        <h2 class="section-title">What's Included</h2>
+        <p class="section-sub">All prices are starting rates. Final quote depends on your specific requirements.</p>
+        <div class="services-grid">${servicesHTML}</div>
+        <div style="text-align:center;margin-top:3rem;padding:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);">
+          <div style="font-size:2rem;margin-bottom:1rem;">💬</div>
+          <h3 style="font-family:var(--font-head);font-size:1.4rem;margin-bottom:0.5rem;">Have a specific requirement?</h3>
+          <p style="color:var(--muted);margin-bottom:1.5rem;font-size:0.9rem;">Submit your project with your budget and we'll make it work.</p>
+          <button class="btn btn-primary" onclick="showPage('contact')">Submit Your Project →</button>
+        </div>
+      </div>
+    </section>
+  `;
+  showPage('category');
+}
+
+// ── CONTACT FORM ──
+function submitProject() {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const category = document.getElementById('f-category').value;
+  const title = document.getElementById('f-title').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  const budget = document.getElementById('f-budget').value.trim();
+  if (!name || !email || !category || !title || !desc || !budget) {
+    alert('Please fill in all required fields (marked with *)');
+    return;
+  }
+  const submission = {
+    id: Date.now(),
+    name, email,
+    phone: document.getElementById('f-phone').value.trim(),
+    category, title, desc, budget,
+    deadline: document.getElementById('f-deadline').value,
+    date: new Date().toLocaleDateString('en-IN'),
+    status: 'New'
+  };
+  submissions.push(submission);
+  localStorage.setItem('pl_submissions', JSON.stringify(submissions));
+  document.getElementById('project-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+
+function resetForm() {
+  ['f-name','f-email','f-phone','f-title','f-desc','f-budget','f-deadline'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-category').value = '';
+  document.getElementById('project-form').style.display = 'block';
+  document.getElementById('form-success').style.display = 'none';
+}
+
+// ── ADMIN ──
+function adminLogin() {
+  const pass = document.getElementById('admin-pass').value;
+  if (pass === ADMIN_PASSWORD) {
+    document.getElementById('login-error').style.display = 'none';
+    document.getElementById('admin-pass').value = '';
+    loadAdminPanel();
+    showPage('admin');
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+
+function adminLogout() {
+  showPage('home');
+}
+
+function loadAdminPanel() {
+  submissions = JSON.parse(localStorage.getItem('pl_submissions') || '[]');
+  // Stats
+  const total = submissions.length;
+  const newCount = submissions.filter(s => s.status === 'New').length;
+  const budgets = submissions.map(s => parseInt(s.budget.replace(/[^\d]/g,''))||0);
+  const totalBudget = budgets.reduce((a,b) => a+b, 0);
+  document.getElementById('admin-stats').innerHTML = `
+    <div class="astat"><div class="astat-val" style="color:var(--accent);">${total}</div><div class="astat-label">Total Submissions</div></div>
+    <div class="astat"><div class="astat-val" style="color:#a07de0;">${newCount}</div><div class="astat-label">New / Unread</div></div>
+    <div class="astat"><div class="astat-val" style="color:var(--success);">₹${totalBudget.toLocaleString('en-IN')}</div><div class="astat-label">Total Pipeline Value</div></div>
+    <div class="astat"><div class="astat-val">${[...new Set(submissions.map(s=>s.category))].length}</div><div class="astat-label">Categories</div></div>
+  `;
+  // Table
+  if (submissions.length === 0) {
+    document.getElementById('admin-table-wrap').innerHTML = `
+      <div class="empty-state"><div class="icon">📭</div><p>No project submissions yet. They'll appear here when clients submit the contact form.</p></div>
+    `;
+    return;
+  }
+  const rows = [...submissions].reverse().map((s,i) => `
+    <tr>
+      <td><strong>${s.name}</strong><br/><span style="color:var(--muted);font-size:0.78rem;">${s.email}</span></td>
+      <td>${s.category}</td>
+      <td style="max-width:240px;">${s.title}<br/><span style="color:var(--muted);font-size:0.78rem;">${s.desc.substring(0,60)}...</span></td>
+      <td><strong style="color:var(--accent);">₹${s.budget}</strong></td>
+      <td>${s.date}</td>
+      <td>
+        <select onchange="updateStatus(${s.id},this.value)" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.3rem 0.5rem;color:var(--text);font-size:0.8rem;cursor:pointer;">
+          <option ${s.status==='New'?'selected':''}>New</option>
+          <option ${s.status==='In Progress'?'selected':''}>In Progress</option>
+          <option ${s.status==='Done'?'selected':''}>Done</option>
+        </select>
+      </td>
+      <td><button onclick="deleteSubmission(${s.id})" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.25rem 0.6rem;border-radius:6px;cursor:pointer;font-size:0.75rem;" title="Delete">🗑</button></td>
+    </tr>
+  `).join('');
+  document.getElementById('admin-table-wrap').innerHTML = `
+    <div style="overflow-x:auto;">
+    <table class="submissions-table">
+      <thead><tr>
+        <th>Client</th><th>Category</th><th>Project</th><th>Budget</th><th>Date</th><th>Status</th><th></th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    </div>
+  `;
+}
+
+function updateStatus(id, status) {
+  submissions = submissions.map(s => s.id === id ? {...s, status} : s);
+  localStorage.setItem('pl_submissions', JSON.stringify(submissions));
+}
+
+function deleteSubmission(id) {
+  if (!confirm('Delete this submission?')) return;
+  submissions = submissions.filter(s => s.id !== id);
+  localStorage.setItem('pl_submissions', JSON.stringify(submissions));
+  loadAdminPanel();
+}
+</script>
+</body>
+</html>
