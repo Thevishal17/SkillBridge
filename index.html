@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ProLancer — Get Any Project Done</title>
+<title>SkillBridge — Get Any Project Done</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
 :root {
@@ -192,13 +192,15 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
 
 <!-- ════════════ NAVBAR ════════════ -->
 <nav>
-  <div class="nav-logo">Pro<span>Lancer</span></div>
+  <div class="nav-logo">
+  <img src="logo.png" style="height:28px;vertical-align:middle;margin-right:6px;">
+  Skill<span>Bridge</span>
+</div>
   <div class="nav-links">
     <a href="#" onclick="showPage('home')">Home</a>
     <a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('categories').scrollIntoView({behavior:'smooth'}),100)">Services</a>
     <a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('how').scrollIntoView({behavior:'smooth'}),100)">How it Works</a>
     <a href="#" onclick="showPage('contact')">Contact</a>
-    <a href="#" onclick="showPage('admin-login')" style="color:var(--muted);font-size:0.82rem;">⚙ Admin</a>
   </div>
   <a class="nav-cta btn" onclick="showPage('contact')">Submit Project →</a>
 </nav>
@@ -414,11 +416,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
           <p>Whether it's a quick task or a big build — we're ready. All projects are welcome.</p>
           <div class="info-item">
             <div class="info-icon">📧</div>
-            <div><strong>Email Us</strong><span>hello@prolancer.dev</span></div>
+            <div><strong>Email Us</strong><span>SkillBridge001@gmail.com</span></div>
           </div>
           <div class="info-item">
             <div class="info-icon">💬</div>
-            <div><strong>WhatsApp</strong><span>+91 98765 43210</span></div>
+            <div><strong>WhatsApp</strong><span>+91 6367385383</span></div>
           </div>
           <div class="info-item">
             <div class="info-icon">🕐</div>
@@ -498,7 +500,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
   <footer style="margin-top:2rem;">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="nav-logo" style="font-size:1.2rem;">Pro<span style="color:var(--accent);">Lancer</span></div>
+        <div class="nav-logo" style="font-size:1.2rem;">Skill<span style="color:var(--accent);">Bridge</span></div>
         <p>Professional freelance services for every type of project.</p>
       </div>
       <div class="footer-col">
@@ -507,47 +509,16 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem
         <a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('categories').scrollIntoView({behavior:'smooth'}),100)">Services</a>
       </div>
     </div>
-    <div class="footer-bottom"><span>© 2025 ProLancer.</span></div>
+    <div class="footer-bottom"><span>© 2026 SkillBridge.</span></div>
   </footer>
 </div>
 
-<!-- ════════════ ADMIN LOGIN ════════════ -->
-<div id="page-admin-login" class="page">
-  <div class="admin-login">
-    <div class="login-card">
-      <div style="font-size:2rem;margin-bottom:0.5rem;">🔐</div>
-      <h2>Admin Access</h2>
-      <p>This area is restricted to the site owner only.</p>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="admin-pass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()"/>
-      </div>
-      <button class="btn-submit" onclick="adminLogin()">Login →</button>
-      <div class="login-error" id="login-error">❌ Incorrect password. Try again.</div>
-      <div style="margin-top:1.5rem;"><a href="#" onclick="showPage('home')" style="color:var(--muted);font-size:0.82rem;">← Back to website</a></div>
-    </div>
-  </div>
-</div>
 
-<!-- ════════════ ADMIN PANEL ════════════ -->
-<div id="page-admin" class="page">
-  <div class="admin-panel active">
-    <div class="admin-header">
-      <h1>Pro<span>Lancer</span> Admin</h1>
-      <button class="admin-logout" onclick="adminLogout()">Logout</button>
-    </div>
-    <div class="admin-body">
-      <div class="admin-stats" id="admin-stats"></div>
-      <div class="admin-section-title">📋 All Project Submissions</div>
-      <div id="admin-table-wrap"></div>
-    </div>
-  </div>
-</div>
+
+
 
 <script>
-// ── STATE ──
-const ADMIN_PASSWORD = 'admin123'; // Change this!
-let submissions = JSON.parse(localStorage.getItem('pl_submissions') || '[]');
+
 
 // ── NAVIGATION ──
 function showPage(name) {
@@ -562,12 +533,12 @@ const catData = {
     icon: '🌐', title: 'Web Development', color: '#f0b429',
     desc: 'From simple landing pages to complex web applications — we build modern, fast, and beautiful websites.',
     services: [
-      { name: 'Landing Page', price: '₹3,000', desc: 'Clean, conversion-focused single-page website', tag: '3–5 days' },
-      { name: 'Business Website', price: '₹8,000', desc: 'Multi-page site with contact form and CMS', tag: '7–10 days' },
-      { name: 'E-Commerce Store', price: '₹15,000', desc: 'Full online store with cart, payments & admin', tag: '14–21 days' },
+      { name: 'Landing Page', price: '₹5,000', desc: 'Clean, conversion-focused single-page website', tag: '3–5 days' },
+      { name: 'Business Website', price: '₹25,000', desc: 'Multi-page site with contact form and CMS', tag: '7–10 days' },
+      { name: 'E-Commerce Store', price: '₹30,000', desc: 'Full online store with cart, payments & admin', tag: '14–21 days' },
       { name: 'Web Application', price: 'Custom', desc: 'Custom dashboard, portal, or SaaS product', tag: 'Discuss timeline' },
-      { name: 'Website Redesign', price: '₹5,000', desc: 'Modern refresh of your existing website', tag: '5–7 days' },
-      { name: 'Bug Fixing / Support', price: '₹1,500', desc: 'Fix issues, speed improvements, updates', tag: '1–2 days' },
+      { name: 'Website Redesign', price: '₹10,000', desc: 'Modern refresh of your existing website', tag: '5–7 days' },
+      { name: 'Bug Fixing / Support', price: '₹3000', desc: 'Fix issues, speed improvements, updates', tag: '1–2 days' },
     ]
   },
   mobile: {
@@ -575,41 +546,41 @@ const catData = {
     desc: 'Native and cross-platform apps for iOS and Android, from prototype to production.',
     services: [
       { name: 'App UI/UX Design', price: '₹6,000', desc: 'Figma prototype and screen flows', tag: '5–7 days' },
-      { name: 'Simple Android App', price: '₹10,000', desc: 'Single-purpose Android application', tag: '10–14 days' },
-      { name: 'Cross-Platform App', price: '₹18,000', desc: 'React Native or Flutter app (iOS + Android)', tag: '21–30 days' },
-      { name: 'App with Backend', price: '₹25,000', desc: 'Full app with API, database, and auth', tag: '30+ days' },
+      { name: 'Simple Android App', price: '₹25,000', desc: 'Single-purpose Android application', tag: '10–14 days' },
+      { name: 'Cross-Platform App', price: '₹35,000', desc: 'React Native or Flutter app (iOS + Android)', tag: '21–30 days' },
+      { name: 'App with Backend', price: '₹50,000', desc: 'Full app with API, database, and auth', tag: '30+ days' },
     ]
   },
   design: {
     icon: '🎨', title: 'Design & Branding', color: '#e05252',
     desc: 'Visual identity, UI design, and everything in between — crafted to make your brand unforgettable.',
     services: [
-      { name: 'Logo Design', price: '₹1,500', desc: 'Unique logo with 3 concepts and revisions', tag: '2–3 days' },
-      { name: 'Brand Identity Kit', price: '₹5,000', desc: 'Logo, colors, fonts, business card, letterhead', tag: '5–7 days' },
-      { name: 'Social Media Kit', price: '₹2,500', desc: '10 branded templates for Instagram/Facebook', tag: '3–4 days' },
-      { name: 'Pitch Deck / Presentation', price: '₹3,500', desc: 'Investor-ready or client presentation design', tag: '3–5 days' },
-      { name: 'UI Design (Web/App)', price: '₹8,000', desc: 'Full UI screens in Figma with components', tag: '7–10 days' },
+      { name: 'Logo Design', price: '₹2000', desc: 'Unique logo with 3 concepts and revisions', tag: '2–3 days' },
+      { name: 'Brand Identity Kit', price: '₹7,000', desc: 'Logo, colors, fonts, business card, letterhead', tag: '5–7 days' },
+      { name: 'Social Media Kit', price: '₹4,000', desc: '10 branded templates for Instagram/Facebook', tag: '3–4 days' },
+      { name: 'Pitch Deck / Presentation', price: '₹5,000', desc: 'Investor-ready or client presentation design', tag: '3–5 days' },
+      { name: 'UI Design (Web/App)', price: '₹10,000', desc: 'Full UI screens in Figma with components', tag: '7–10 days' },
     ]
   },
   data: {
     icon: '📊', title: 'Data & Analytics', color: '#3ecf8e',
     desc: 'Turn raw data into actionable insights with scripts, dashboards, and automation.',
     services: [
-      { name: 'Excel Automation', price: '₹2,000', desc: 'Macros, formulas, and automated reports', tag: '1–2 days' },
-      { name: 'Python Data Script', price: '₹3,500', desc: 'Custom Python script for analysis or scraping', tag: '2–4 days' },
-      { name: 'Data Dashboard', price: '₹7,000', desc: 'Interactive charts and reports (Power BI/Tableau)', tag: '5–7 days' },
-      { name: 'Database Design', price: '₹5,000', desc: 'Schema design, queries, and optimization', tag: '4–6 days' },
-      { name: 'ML Model (Basic)', price: '₹10,000', desc: 'Classification, regression, or prediction model', tag: '10–14 days' },
+      { name: 'Excel Automation', price: '₹3,000', desc: 'Macros, formulas, and automated reports', tag: '1–2 days' },
+      { name: 'Python Data Script', price: '₹4,500', desc: 'Custom Python script for analysis or scraping', tag: '2–4 days' },
+      { name: 'Data Dashboard', price: '₹8,000', desc: 'Interactive charts and reports (Power BI/Tableau)', tag: '5–7 days' },
+      { name: 'Database Design', price: '₹6,000', desc: 'Schema design, queries, and optimization', tag: '4–6 days' },
+      { name: 'ML Model (Basic)', price: '₹15,000', desc: 'Classification, regression, or prediction model', tag: '10–14 days' },
     ]
   },
   writing: {
     icon: '✍️', title: 'Content & Writing', color: '#f0b429',
     desc: 'High-quality written content for every platform — from blog posts to technical documentation.',
     services: [
-      { name: 'Blog Post (1000 words)', price: '₹800', desc: 'SEO-optimized article on your topic', tag: '1–2 days' },
+      { name: 'Blog Post (1000 words)', price: '₹1000', desc: 'SEO-optimized article on your topic', tag: '1–2 days' },
       { name: 'Website Copy', price: '₹3,000', desc: 'Homepage, about, and service page copy', tag: '3–4 days' },
       { name: 'Technical Writing', price: '₹4,000', desc: 'Documentation, manuals, SOPs', tag: '4–6 days' },
-      { name: 'Social Media Content', price: '₹2,000', desc: '30 days of captions and content plan', tag: '2–3 days' },
+      { name: 'Social Media Content', price: '₹4,000', desc: '30 days of captions and content plan', tag: '2–3 days' },
       { name: 'Translation (per page)', price: '₹500', desc: 'Hindi ↔ English and other languages', tag: '1 day' },
     ]
   },
@@ -617,10 +588,10 @@ const catData = {
     icon: '🤖', title: 'AI & Automation', color: '#7c5cbf',
     desc: 'Chatbots, AI integrations, and smart automations that save you time and money.',
     services: [
-      { name: 'Chatbot Integration', price: '₹5,000', desc: 'AI chatbot for your website or WhatsApp', tag: '3–5 days' },
-      { name: 'Workflow Automation', price: '₹4,000', desc: 'Zapier/Make automation for your business', tag: '2–4 days' },
-      { name: 'AI Content Tool', price: '₹8,000', desc: 'Custom AI writing or image generation tool', tag: '7–10 days' },
-      { name: 'API Integration', price: '₹3,000', desc: 'Connect any two tools or platforms via API', tag: '2–3 days' },
+      { name: 'Chatbot Integration', price: '₹7,000', desc: 'AI chatbot for your website or WhatsApp', tag: '3–5 days' },
+      { name: 'Workflow Automation', price: '₹5,000', desc: 'Zapier/Make automation for your business', tag: '2–4 days' },
+      { name: 'AI Content Tool', price: '₹12,000', desc: 'Custom AI writing or image generation tool', tag: '7–10 days' },
+      { name: 'API Integration', price: '₹5,000', desc: 'Connect any two tools or platforms via API', tag: '2–3 days' },
       { name: 'Custom AI App', price: 'Custom', desc: 'Tailored AI solution for your specific use case', tag: 'Discuss' },
     ]
   },
@@ -628,21 +599,21 @@ const catData = {
     icon: '🎬', title: 'Video & Media', color: '#e05252',
     desc: 'Professional video editing, animations, and motion graphics for social and marketing.',
     services: [
-      { name: 'Reel / Short Edit', price: '₹1,500', desc: 'Instagram/YouTube short (up to 60 sec)', tag: '1–2 days' },
+      { name: 'Reel / Short Edit', price: '₹3,000', desc: 'Instagram/YouTube short (up to 60 sec)', tag: '1–2 days' },
       { name: 'Promo Video', price: '₹4,000', desc: 'Product or service promotional video (2–3 min)', tag: '4–6 days' },
       { name: 'Explainer Animation', price: '₹8,000', desc: '2D animated explainer video (1–2 min)', tag: '7–10 days' },
-      { name: 'YouTube Video Edit', price: '₹2,500', desc: 'Full editing, captions, thumbnail included', tag: '2–3 days' },
-      { name: 'Motion Graphics Logo', price: '₹2,000', desc: 'Animated logo reveal for intros/outros', tag: '2 days' },
+      { name: 'YouTube Video Edit', price: '₹5,000', desc: 'Full editing, captions, thumbnail included', tag: '2–3 days' },
+      { name: 'Motion Graphics Logo', price: '₹3,000', desc: 'Animated logo reveal for intros/outros', tag: '2 days' },
     ]
   },
   other: {
     icon: '💡', title: 'Custom Projects', color: '#3ecf8e',
     desc: "Have something unique that doesn't fit a category? We love a challenge. Submit it and we'll figure it out together.",
     services: [
-      { name: 'Research & Reports', price: '₹3,000', desc: 'In-depth research on any topic with citations', tag: '3–5 days' },
-      { name: 'Academic Help', price: '₹2,000', desc: 'Essays, assignments, presentations', tag: '1–3 days' },
-      { name: 'Business Plan', price: '₹5,000', desc: 'Full business plan with financial projections', tag: '5–7 days' },
-      { name: 'Virtual Assistance', price: '₹1,500/week', desc: 'Admin tasks, emails, scheduling, research', tag: 'Ongoing' },
+      { name: 'Research & Reports', price: '₹5,000', desc: 'In-depth research on any topic with citations', tag: '3–5 days' },
+      { name: 'Academic Help', price: '₹5,000', desc: 'Essays, assignments, presentations', tag: '1–3 days' },
+      { name: 'Business Plan', price: '₹7,000', desc: 'Full business plan with financial projections', tag: '5–7 days' },
+      { name: 'Virtual Assistance', price: '₹3,000/week', desc: 'Admin tasks, emails, scheduling, research', tag: 'Ongoing' },
       { name: 'Any Other Project', price: 'Custom', desc: 'Describe your project and we\'ll quote you', tag: 'Flexible' },
     ]
   }
@@ -695,25 +666,29 @@ function submitProject() {
   const title = document.getElementById('f-title').value.trim();
   const desc = document.getElementById('f-desc').value.trim();
   const budget = document.getElementById('f-budget').value.trim();
+
   if (!name || !email || !category || !title || !desc || !budget) {
-    alert('Please fill in all required fields (marked with *)');
+    alert('Please fill all required fields');
     return;
   }
-  const submission = {
-    id: Date.now(),
-    name, email,
-    phone: document.getElementById('f-phone').value.trim(),
-    category, title, desc, budget,
-    deadline: document.getElementById('f-deadline').value,
-    date: new Date().toLocaleDateString('en-IN'),
-    status: 'New'
-  };
-  submissions.push(submission);
-  localStorage.setItem('pl_submissions', JSON.stringify(submissions));
-  document.getElementById('project-form').style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
-}
 
+  emailjs.send("service_hliyhcg","template_imkhv07",{
+    name: name,
+    email: email,
+    category: category,
+    title: title,
+    description: desc,
+    budget: budget,
+    phone: document.getElementById('f-phone').value,
+    deadline: document.getElementById('f-deadline').value
+  })
+  .then(function(response) {
+     document.getElementById('project-form').style.display = 'none';
+     document.getElementById('form-success').style.display = 'block';
+  }, function(error) {
+     alert("Failed to send. Try again.");
+  });
+}
 function resetForm() {
   ['f-name','f-email','f-phone','f-title','f-desc','f-budget','f-deadline'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f-category').value = '';
@@ -721,83 +696,14 @@ function resetForm() {
   document.getElementById('form-success').style.display = 'none';
 }
 
-// ── ADMIN ──
-function adminLogin() {
-  const pass = document.getElementById('admin-pass').value;
-  if (pass === ADMIN_PASSWORD) {
-    document.getElementById('login-error').style.display = 'none';
-    document.getElementById('admin-pass').value = '';
-    loadAdminPanel();
-    showPage('admin');
-  } else {
-    document.getElementById('login-error').style.display = 'block';
-  }
-}
 
-function adminLogout() {
-  showPage('home');
-}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
-function loadAdminPanel() {
-  submissions = JSON.parse(localStorage.getItem('pl_submissions') || '[]');
-  // Stats
-  const total = submissions.length;
-  const newCount = submissions.filter(s => s.status === 'New').length;
-  const budgets = submissions.map(s => parseInt(s.budget.replace(/[^\d]/g,''))||0);
-  const totalBudget = budgets.reduce((a,b) => a+b, 0);
-  document.getElementById('admin-stats').innerHTML = `
-    <div class="astat"><div class="astat-val" style="color:var(--accent);">${total}</div><div class="astat-label">Total Submissions</div></div>
-    <div class="astat"><div class="astat-val" style="color:#a07de0;">${newCount}</div><div class="astat-label">New / Unread</div></div>
-    <div class="astat"><div class="astat-val" style="color:var(--success);">₹${totalBudget.toLocaleString('en-IN')}</div><div class="astat-label">Total Pipeline Value</div></div>
-    <div class="astat"><div class="astat-val">${[...new Set(submissions.map(s=>s.category))].length}</div><div class="astat-label">Categories</div></div>
-  `;
-  // Table
-  if (submissions.length === 0) {
-    document.getElementById('admin-table-wrap').innerHTML = `
-      <div class="empty-state"><div class="icon">📭</div><p>No project submissions yet. They'll appear here when clients submit the contact form.</p></div>
-    `;
-    return;
-  }
-  const rows = [...submissions].reverse().map((s,i) => `
-    <tr>
-      <td><strong>${s.name}</strong><br/><span style="color:var(--muted);font-size:0.78rem;">${s.email}</span></td>
-      <td>${s.category}</td>
-      <td style="max-width:240px;">${s.title}<br/><span style="color:var(--muted);font-size:0.78rem;">${s.desc.substring(0,60)}...</span></td>
-      <td><strong style="color:var(--accent);">₹${s.budget}</strong></td>
-      <td>${s.date}</td>
-      <td>
-        <select onchange="updateStatus(${s.id},this.value)" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.3rem 0.5rem;color:var(--text);font-size:0.8rem;cursor:pointer;">
-          <option ${s.status==='New'?'selected':''}>New</option>
-          <option ${s.status==='In Progress'?'selected':''}>In Progress</option>
-          <option ${s.status==='Done'?'selected':''}>Done</option>
-        </select>
-      </td>
-      <td><button onclick="deleteSubmission(${s.id})" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.25rem 0.6rem;border-radius:6px;cursor:pointer;font-size:0.75rem;" title="Delete">🗑</button></td>
-    </tr>
-  `).join('');
-  document.getElementById('admin-table-wrap').innerHTML = `
-    <div style="overflow-x:auto;">
-    <table class="submissions-table">
-      <thead><tr>
-        <th>Client</th><th>Category</th><th>Project</th><th>Budget</th><th>Date</th><th>Status</th><th></th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-    </div>
-  `;
-}
-
-function updateStatus(id, status) {
-  submissions = submissions.map(s => s.id === id ? {...s, status} : s);
-  localStorage.setItem('pl_submissions', JSON.stringify(submissions));
-}
-
-function deleteSubmission(id) {
-  if (!confirm('Delete this submission?')) return;
-  submissions = submissions.filter(s => s.id !== id);
-  localStorage.setItem('pl_submissions', JSON.stringify(submissions));
-  loadAdminPanel();
-}
+<script>
+(function(){
+emailjs.init("HUPutT4oHBFxUAHRW");
+})();
 </script>
 </body>
 </html>
